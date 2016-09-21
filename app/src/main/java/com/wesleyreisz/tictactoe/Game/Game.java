@@ -17,11 +17,14 @@ public class Game {
 
     private static Game game = new Game();
 
-    private int currentPlayer = Game.PLAYER1;
-    private int[][]board = new int[3][3];
-    private int totalMoves = 0;
+    private int currentPlayer;
+    private int[][]board;
+    private int totalMoves;
 
     private Game(){
+        this.currentPlayer = Game.PLAYER1;
+        this.board = new int[3][3];
+        this.totalMoves = 0;
     }
 
     public static Game getInstance(){
@@ -33,7 +36,8 @@ public class Game {
     }
 
     public void makeMove(String position) throws RuntimeException{
-        Log.d(TAG,String.format("Player %s moved to: %s", currentPlayer, position));
+        //Log.d(TAG,String.format("Player %s moved to: %s", currentPlayer, position)); //game.makeMove("3_1");//player1
+        Log.d(TAG,String.format("game.makeMove(\"%s\");//%s", position, "player"+currentPlayer));
         updateBoard(position, currentPlayer);
         swapPlayer();
         totalMoves++;
@@ -44,7 +48,7 @@ public class Game {
         //check each row for a win
         //[0,0][0,1][0,2] && [1,0][1,1][1,2] && [2,0][2,1][2,2]
         for(int x=0;x<MAX_ROWCOL;x++){
-            if((board[x][0]==board[x][1])&&board[x][1]==board[x][2]){
+            if((board[x][0]==board[x][1])&&(board[x][1]==board[x][2]) && board[x][1]!=BLANK){
                 return board[x][0];
             }
         }
@@ -52,17 +56,17 @@ public class Game {
         //check each col for a win
         //[0,0][1,0][2,0] && [0,1][1,1][2,1] && [0,2][1,2][2,2]
         for(int y=0;y<MAX_ROWCOL;y++) {
-            if ((board[0][y] == board[1][y]) && (board[1][y] == board[2][y])) {
-                return board[0][y];
+            if ((board[0][y]==board[1][y]) && (board[1][y]==board[2][y]) && board[0][y]!=BLANK) {
+                return board[2][y];
             }
         }
 
         //check diagonal
-        if((board[0][0]==board[1][1])&&(board[1][1]==board[2][2])){
+        if((board[0][0]==board[1][1])&&(board[1][1]==board[2][2])&& board[1][1]!=BLANK){
             return board[1][1];
         }
         //check inverse diagonal
-        if((board[0][2]==board[1][1])&&(board[1][1]==board[2][0])){
+        if((board[0][2]==board[1][1])&&(board[1][1]==board[2][0])&& board[1][1]!=BLANK){
             return board[1][1];
         }
 
