@@ -23,6 +23,13 @@
             android:text="Reset Game"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/btnReset"
+            android:paddingTop="50px"
+            android:src="@drawable/tic_tac_toe"/>
     </RelativeLayout>
     <LinearLayout
         android:layout_weight=".3"
