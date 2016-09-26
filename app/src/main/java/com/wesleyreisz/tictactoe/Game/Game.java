@@ -98,4 +98,16 @@ public class Game {
     public void reset() {
         game = new Game();
     }
+
+    public boolean hasStarted(){
+        if (totalMoves>0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public int[][]getBoard(){
+        return board;
+    }
 }

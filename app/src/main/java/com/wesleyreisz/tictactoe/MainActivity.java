@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.wesleyreisz.tictactoe.Game.Game;
@@ -15,7 +16,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        resetGame();
     }
 
     @Override
@@ -29,7 +29,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        resetGame();
+
+        //reset board vs game
+        Game game = Game.getInstance();
+        if (game.hasStarted()){
+            resetBoard();
+        }else{
+            resetGame();
+        }
+
     }
 
     private void wireEvents(boolean isGameBoardEnabled, boolean isResettingBoard) {
@@ -116,5 +124,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Game game = Game.getInstance();
         game.reset();
         wireEvents(true, true);
+    }
+    private void resetBoard() {
+        wireEvents(true, false);
+        resetGameTile((ImageButton)findViewById(R.id.btn1_1), Game.getInstance().getBoard()[0][0]);
+        resetGameTile((ImageButton)findViewById(R.id.btn1_2), Game.getInstance().getBoard()[0][1]);
+        resetGameTile((ImageButton)findViewById(R.id.btn1_3), Game.getInstance().getBoard()[0][2]);
+        resetGameTile((ImageButton)findViewById(R.id.btn2_1), Game.getInstance().getBoard()[1][0]);
+        resetGameTile((ImageButton)findViewById(R.id.btn2_2), Game.getInstance().getBoard()[1][1]);
+        resetGameTile((ImageButton)findViewById(R.id.btn2_3), Game.getInstance().getBoard()[1][2]);
+        resetGameTile((ImageButton)findViewById(R.id.btn3_1), Game.getInstance().getBoard()[2][0]);
+        resetGameTile((ImageButton)findViewById(R.id.btn3_2), Game.getInstance().getBoard()[2][1]);
+        resetGameTile((ImageButton)findViewById(R.id.btn3_3), Game.getInstance().getBoard()[2][2]);
+    }
+    private void resetGameTile(ImageButton btn, int move){
+        if(move==Game.PLAYER1){
+            btn.setImageResource(R.drawable.x);
+        }else if(move==Game.PLAYER2){
+            btn.setImageResource(R.drawable.o);
+        }else{
+            btn.setImageResource(R.drawable.blank);
+        }
     }
 }
