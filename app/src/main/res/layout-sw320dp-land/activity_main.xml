@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_below="@id/btnReset"
-            android:paddingTop="50px"
+            android:padding="50px"
             android:src="@drawable/tic_tac_toe"/>
     </RelativeLayout>
     <LinearLayout
